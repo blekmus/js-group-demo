@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 import ContentHeader from "../ContentHeader";
@@ -6,9 +6,11 @@ import HeaderActionBar from "./HeaderActionBar";
 import ChannelName from "../ChannelName";
 import MessagesWrapper from "./MessagesWrapper";
 import MembersList from "./MembersList";
-
-import colors from "../../utils/colors";
 import NewMessageWrapper from "./NewMessageWrapper";
+import colors from "../../utils/colors";
+
+import useChatStore from "../../stores/useChatStores";
+import useActiveMembersStore from "../../stores/useActiveMembersStores";
 
 const StyledChat = styled.div`
   background: ${colors.grayLight};
@@ -29,67 +31,17 @@ const StyledChat = styled.div`
   }
 `;
 
-const Chat = ({ channel, guild }) => {
-  const [activeMembers, setActiveMembers] = useState([
-    "member1",
-    "member2",
-    "member3",
-    "member4",
-    "member5",
-  ]);
 
-  // setActiveMembers(["member1", "member2", "member3", "member4", "member5"]);
+const Chat = ({ channel, guild, handlePostMessage }) => {
+  const { activeMembers } = useActiveMembersStore();
+  const { messages } = useChatStore();
 
-  const messages = [
-    {
-      id: 1,
-      content: "Hello",
-      user: "something",
-      time: "5:00 PM",
-    },
-    {
-      id: 5,
-      content: "Hello",
-      user: "something",
-      time: "8:00 PM",
-    },
-
-    {
-      id: 4,
-      content: "Hello",
-      user: "something",
-      time: "9:00 PM",
-    },
-
-    {
-      id: 2,
-      content: "Hello",
-      user: "something",
-      time: "10:00 PM",
-    },
-
-    {
-      id: 3,
-      content: "Hello",
-      user: "something",
-      time: "11:00 PM",
-    },
-  ];
-
-  const handlePostMessage = (message) => {
-    // Handle posting the message
-    console.log("Message posted:", message);
-  }
 
   return (
     <StyledChat className="app-content">
       <ContentHeader
         content={
-          <ChannelName
-            name={channel.name}
-            isUser={false}
-            selected={true}
-          />
+          <ChannelName name={channel.name} isUser={false} selected={true} />
         }
         rightContent={<HeaderActionBar />}
       />
@@ -98,12 +50,12 @@ const Chat = ({ channel, guild }) => {
         <div className="messages-container">
           <MessagesWrapper
             guild={guild}
-            messages={messages}
+            messages={messages[channel.name] || []}
             channelName={channel.name}
           />
           <NewMessageWrapper onPost={handlePostMessage} />
         </div>
-        <MembersList activeMembers={activeMembers} />
+        <MembersList activeMembers={activeMembers[channel.name] || []} />
       </div>
     </StyledChat>
   );

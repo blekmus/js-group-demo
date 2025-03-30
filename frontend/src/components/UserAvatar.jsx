@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import constants from '../utils/constants';
 import colors from '../utils/colors';
 
 const StyledUserAvatar = styled.div`
@@ -60,7 +59,7 @@ const UserAvatar = ({ className, avatarUrl, children }) => {
     >
       <div
         className="avatar"
-        style={{ backgroundImage: `url(${avatarUrl || constants.defaultAvatar})` }}
+        style={{ backgroundImage: `url(${avatarUrl})` }}
       >
         {children}
       </div>

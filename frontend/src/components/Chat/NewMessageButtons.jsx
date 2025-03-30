@@ -3,8 +3,6 @@ import styled from 'styled-components';
 import colors from '../../utils/colors';
 
 import EmojiPickerButton from './EmojiPickerButton';
-import Gift from '../../icons/Gift';
-import GifPicker from '../../icons/GifPicker';
 
 const StyledButtonsBar = styled.div`
   display: flex;
@@ -17,25 +15,24 @@ const ButtonContainer = styled.button`
   margin: 0;
   border: 0;
   outline: 0;
-  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: ${props => props.outerWidth}px;
+  width: ${props => props.$outerwidth}px;
   height: 44px;
   flex: 0 0 auto;
 
   > div {
-    width: ${props => props.iconWidth}px;
-    height: ${props => props.iconHeight}px;
+    width: ${props => props.$iconwidth}px;
+    height: ${props => props.$iconheight}px;
     color: ${colors.icon};
     transition: all 0.2s ease;
   }
 
   :hover > div {
     color: ${colors.iconHover};
-    width: ${props => props.iconWidth + 2}px;
-    height: ${props => props.iconHeight + 2}px;
+    width: ${props => props.$iconwidth + 2}px;
+    height: ${props => props.$iconheight + 2}px;
   }
 
   svg {
@@ -44,20 +41,11 @@ const ButtonContainer = styled.button`
   }
 `;
 
-export default () => (
+const messageButtons = () => (
   <StyledButtonsBar>
-    <ButtonContainer outerWidth={34} iconWidth={20} iconHeight={20}>
-      <div>
-        <Gift />
-      </div>
-    </ButtonContainer>
-
-    <ButtonContainer outerWidth={40} iconWidth={24} iconHeight={18}>
-      <div>
-        <GifPicker />
-      </div>
-    </ButtonContainer>
-
     <EmojiPickerButton />
   </StyledButtonsBar>
 );
+
+
+export default messageButtons

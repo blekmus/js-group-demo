@@ -15,7 +15,7 @@ const StyledGuildIcon = styled.a.attrs({ href: '#' })`
 
   
   background: ${props => (props.selected ? colors.primary : colors.grayNormal)};
-  background-image: ${props => props.icon !== 's' ? `url(${props.icon})` : 'none'};
+  background-image: ${props => props.$icon !== 's' ? `url(${props.$icon})` : 'none'};
   background-size: cover;
   background-position: center;
   border-radius: ${props => (props.selected ? '15px' : '50%')};
@@ -74,7 +74,7 @@ const GuildIcon = ({ name, icon, selected, isHome, isAdd, onClick, ...props }) =
   return (
     <StyledGuildIcon
       selected={selected}
-      icon={icon ? icon : 's'}
+      $icon={icon ? icon : 's'}
       onClick={onClick}
       className={isAdd ? 'add' : ''}
       {...props}

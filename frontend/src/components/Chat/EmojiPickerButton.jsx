@@ -11,7 +11,6 @@ const StyledEmojiPickerButton = styled.button`
   margin: 0;
   border: 0;
   outline: 0;
-  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;

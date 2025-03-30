@@ -1,11 +1,16 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
+import { io } from "socket.io-client";
+import { v4 as uuid } from "uuid";
+
 import GlobalStyles from "./components/globalstyles";
 import ScrollbarStyles from "./components/scrollbarstyles";
 import Navbar from "./components/Navbar";
 import { TooltipsManager } from "./components/Tooltip";
 import Channels from "./components/Channels";
 import Chat from "./components/Chat";
+import useActiveMembersStore from "./stores/useActiveMembersStores";
+import useChatStore from "./stores/useChatStores";
 
 const guilds = [
   {
@@ -25,18 +30,18 @@ const guilds = [
       },
     ],
   },
-  {
-    id: 2,
-    name: "Other",
-    icon: "https://i.imgur.com/EOASYoR.png",
-    channels: [
-      {
-        id: 1,
-        name: "default",
-        socket: "default",
-      },
-    ],
-  },
+  // {
+  //   id: 2,
+  //   name: "Other",
+  //   icon: "https://i.imgur.com/EOASYoR.png",
+  //   channels: [
+  //     {
+  //       id: 1,
+  //       name: "default",
+  //       socket: "default",
+  //     },
+  //   ],
+  // },
 ];
 
 const StyledApp = styled.div`
@@ -49,10 +54,15 @@ const StyledApp = styled.div`
   }
 `;
 
+const socket = io("http://localhost:3001");
+
 const App = () => {
   const [currentArea, setCurrentArea] = useState("CHAT");
   const [selectedGuildId, setSelectedGuildId] = useState(1);
   const [selectedChannelId, setSelectedChannelId] = useState(1);
+
+  const { addMember } = useActiveMembersStore();
+  const { addMessage } = useChatStore();
 
   const selectedGuild = useMemo(() => {
     return selectedGuildId
@@ -75,7 +85,7 @@ const App = () => {
             selectedChannelId={selectedChannelId}
             onChannelClick={handleChannelClick}
           />
-          <Chat channel={selectedChannel} guild={selectedGuild} />
+          <Chat channel={selectedChannel} guild={selectedGuild} handlePostMessage={handlePostMessage} />
         </>
       );
     }
@@ -92,6 +102,60 @@ const App = () => {
       setSelectedChannelId(channelId);
     }
   };
+
+  useEffect(() => {
+    function onGeneralMessage({ message, username }) {
+      addMessage("general", {
+        id: uuid(),
+        content: message,
+        user: username,
+        time: new Date().toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
+      });
+
+      addMember("general", username);
+    }
+
+    function onLessonMessage({ message, username }) {
+      addMessage("lesson", {
+        id: uuid(),
+        content: message,
+        user: username,
+        time: new Date().toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
+      });
+
+      addMember("lesson", username);
+    }
+
+    socket.on("general", onGeneralMessage);
+    socket.on("lesson", onLessonMessage);
+
+    return () => {
+      socket.off("general", onGeneralMessage);
+      socket.off("lesson", onLessonMessage);
+    };
+  }, [addMessage, addMember]);
+
+  const handlePostMessage = (message) => {
+    if (message.trim()) {
+      socket.emit(selectedChannel.socket, { username: "admin", message });
+      addMessage(selectedChannel.name, {
+        id: uuid(),
+        content: message,
+        user: "admin",
+        time: new Date().toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
+      });
+    }
+  };
+
 
   return (
     <StyledApp>

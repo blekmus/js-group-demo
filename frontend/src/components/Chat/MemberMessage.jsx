@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 import colors from "../../utils/colors";
 
-
 const StyledMessage = styled.div`
   margin-bottom: 0.2em;
 
@@ -43,7 +42,8 @@ const StyledMessage = styled.div`
     }
 
     .username {
-      color: ${colors.memberUsernameChat};
+      font-weight: 400;
+      color: ${props => props.color};
 
       :hover {
         text-decoration: underline;
@@ -71,14 +71,25 @@ const StyledMessage = styled.div`
 `;
 
 export const Message = ({ message }) => {
+  let avatar;
+  let color = colors.memberUsernameChat;
+
+  if (message.user === "admin") {
+    color = "#71c5ff";
+    avatar =
+      "https://thelonelylands.com/_next/image?url=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F47277246&w=3840&q=75";
+  } else {
+    avatar = "https://api.dicebear.com/9.x/glass/svg?seed=" + message.user;
+  }
+
   return (
-    <StyledMessage>
+    <StyledMessage color={color}>
       <div className="header">
         <div className="avatar-wrapper">
           <div
             className="avatar"
             style={{
-              backgroundImage: `url(https://thelonelylands.com/_next/image?url=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F47277246&w=3840&q=75)`,
+              backgroundImage: `url(${avatar})`,
             }}
           />
         </div>

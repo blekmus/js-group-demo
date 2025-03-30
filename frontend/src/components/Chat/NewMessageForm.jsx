@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 
 import AttachButton from "./AttachButton";
@@ -36,6 +36,7 @@ const StyledTextarea = styled.textarea`
 
 const NewMessageForm = ({ onPost }) => {
   const [message, setMessage] = useState("");
+  const inputElement = useRef();
 
   return (
     <StyledNewMessageForm>
@@ -46,11 +47,13 @@ const NewMessageForm = ({ onPost }) => {
       <StyledTextarea
         onChange={(e) => setMessage(e.target.value)}
         rows={1}
+        ref={inputElement}
         placeholder={`Type Message`}
         onKeyDown={(e) => {
           if (e.key === "Enter" && !e.shiftKey) {
             e.preventDefault();
             onPost(message);
+            inputElement.current.value = "";
           }
         }}
       />

@@ -27,6 +27,7 @@ const StyledUserFooter = styled.div`
   .content {
     overflow: hidden;
     text-overflow: ellipsis;
+    width: 100%;
     white-space: nowrap;
   }
 
@@ -89,7 +90,7 @@ const UserFooter = () => {
       />
 
       <div className="content">
-        <div className="username">blekmus</div>
+        <div className="username">admin</div>
         <div className="tag">#696969</div>
       </div>
 

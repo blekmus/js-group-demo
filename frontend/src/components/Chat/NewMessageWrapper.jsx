@@ -7,9 +7,8 @@ const StyledNewMessageWrapper = styled.div`
 `;
 
 const StyledContainer = styled.div`
-  border-top: 1px solid hsla(0, 0%, 100%, 0.06);
-  margin-bottom: 30px;
-  padding-top: 20px;
+  margin-bottom: 15px;
+  padding-top: 5px;
 `;
 
 const NewMessageWrapper = ({ onPost }) => (

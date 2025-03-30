@@ -32,20 +32,29 @@ const StyledMember = styled.div`
   }
 `;
 
-const MemberListItem = ({ member }) => (
-  <StyledMember color="rgb(185, 187, 190)">
+const MemberListItem = ({ member }) => {
+  let color = "rgb(185, 187, 190)";
+
+
+  if (member.username === "admin") {
+    color = "#71c5ff"
+  }
+
+return (
+  <StyledMember color={color}>
     <UserAvatar
       className="avatar-wrapper"
-      avatarUrl="https://thelonelylands.com/_next/image?url=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F47277246&w=3840&q=75"
+      avatarUrl={member.avatar}
     />
 
     <div className="member-inner">
-      <div className="username">{member}</div>
+      <div className="username">{member.username}</div>
       <div className="status">
         Connected to <strong>DiscountCord</strong>
       </div>
     </div>
   </StyledMember>
-);
+)
+};
 
 export default MemberListItem;
