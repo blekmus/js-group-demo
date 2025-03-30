@@ -27,12 +27,12 @@ const GuildSeparator = styled.div`
   background: ${colors.separator};
 `;
 
-const Navbar = ({ guilds, onGuildClick, selectedGuildId, onHomeClick, homeSelected }) => (
+const Navbar = ({ guilds, onGuildClick, selectedGuildId, homeSelected }) => (
   <StyledNavbar>
     <ScrollableArea invisible>
       <div className="content">
         <TooltipWrapper content="Home" direction="right">
-          <GuildIcon isHome={true} selected={homeSelected} onClick={onHomeClick} />
+          <GuildIcon isHome={true} selected={homeSelected} />
         </TooltipWrapper>
 
         <GuildSeparator />

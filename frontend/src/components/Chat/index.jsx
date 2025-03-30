@@ -8,6 +8,7 @@ import MessagesWrapper from "./MessagesWrapper";
 import MembersList from "./MembersList";
 
 import colors from "../../utils/colors";
+import NewMessageWrapper from "./NewMessageWrapper";
 
 const StyledChat = styled.div`
   background: ${colors.grayLight};
@@ -75,6 +76,11 @@ const Chat = ({ channel, guild }) => {
     },
   ];
 
+  const handlePostMessage = (message) => {
+    // Handle posting the message
+    console.log("Message posted:", message);
+  }
+
   return (
     <StyledChat className="app-content">
       <ContentHeader
@@ -95,7 +101,7 @@ const Chat = ({ channel, guild }) => {
             messages={messages}
             channelName={channel.name}
           />
-          {/* <NewMessageWrapper channelName={channelName} isPrivate={isPrivate} /> */}
+          <NewMessageWrapper onPost={handlePostMessage} />
         </div>
         <MembersList activeMembers={activeMembers} />
       </div>

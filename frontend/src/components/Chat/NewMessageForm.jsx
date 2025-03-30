@@ -1,8 +1,8 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useState } from "react";
+import styled from "styled-components";
 
-import AttachButton from './AttachButton';
-import NewMessageButtons from './NewMessageButtons';
+import AttachButton from "./AttachButton";
+import NewMessageButtons from "./NewMessageButtons";
 
 const StyledNewMessageForm = styled.form`
   border-radius: 5px;
@@ -34,16 +34,30 @@ const StyledTextarea = styled.textarea`
   width: 100%;
 `;
 
-const NewMessageForm = ({ channelName, isPrivate }) => (
-  <StyledNewMessageForm>
-    <AttachButton />
+const NewMessageForm = ({ onPost }) => {
+  const [message, setMessage] = useState("");
 
-    <StyledDivider />
+  return (
+    <StyledNewMessageForm>
+      <AttachButton />
 
-    <StyledTextarea rows={1} placeholder={`Message ${(isPrivate ? '@' : '#') + channelName}`} />
+      <StyledDivider />
 
-    <NewMessageButtons />
-  </StyledNewMessageForm>
-);
+      <StyledTextarea
+        onChange={(e) => setMessage(e.target.value)}
+        rows={1}
+        placeholder={`Type Message`}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            onPost(message);
+          }
+        }}
+      />
+
+      <NewMessageButtons />
+    </StyledNewMessageForm>
+  );
+};
 
 export default NewMessageForm;

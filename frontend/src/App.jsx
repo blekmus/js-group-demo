@@ -32,7 +32,7 @@ const guilds = [
     channels: [
       {
         id: 1,
-        name: "Default",
+        name: "default",
         socket: "default",
       },
     ],
@@ -75,18 +75,10 @@ const App = () => {
             selectedChannelId={selectedChannelId}
             onChannelClick={handleChannelClick}
           />
-          <Chat
-            channel={selectedChannel}
-            guild={selectedGuild}
-          />
+          <Chat channel={selectedChannel} guild={selectedGuild} />
         </>
       );
     }
-  };
-
-  const handleHomeClick = () => {
-    setSelectedGuildId(null);
-    setCurrentArea("HOME");
   };
 
   const handleGuildClick = (guildId) => {
@@ -95,10 +87,7 @@ const App = () => {
   };
 
   const handleChannelClick = (guildId, channelId) => {
-    if (currentArea === "HOME") {
-      // setSelectedPrivateChannelId(channelId);
-      console.log("Private channel")
-    } else if (currentArea === "CHAT") {
+    if (currentArea === "CHAT") {
       setSelectedGuildId(guildId);
       setSelectedChannelId(channelId);
     }
@@ -113,7 +102,6 @@ const App = () => {
       <Navbar
         guilds={guilds}
         onGuildClick={handleGuildClick}
-        onHomeClick={handleHomeClick}
         selectedGuildId={selectedGuildId}
         homeSelected={currentArea === "HOME"}
       />
