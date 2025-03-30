@@ -25,3 +25,5 @@ dist-ssr
 
 # mac
 .DS_Store
+
+.env
