@@ -18,7 +18,6 @@ const StyledMember = styled.div`
     .username {
       color: ${(props) => props.color || colors.memberUsernameOnline};
       font-size: 1em;
-      font-weight: 400;
     }
 
     .status {

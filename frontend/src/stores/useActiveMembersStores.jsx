@@ -16,6 +16,13 @@ const useActiveMembersStore = create((set) => ({
           "https://thelonelylands.com/_next/image?url=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F47277246&w=3840&q=75",
       },
     ],
+    default: [
+      {
+        username: "admin",
+        avatar:
+          "https://thelonelylands.com/_next/image?url=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F47277246&w=3840&q=75",
+      },
+    ]
   },
 
   addMember: (channel, username) =>

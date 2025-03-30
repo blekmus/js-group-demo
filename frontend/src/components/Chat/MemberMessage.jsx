@@ -42,7 +42,6 @@ const StyledMessage = styled.div`
     }
 
     .username {
-      font-weight: 400;
       color: ${props => props.color};
 
       :hover {

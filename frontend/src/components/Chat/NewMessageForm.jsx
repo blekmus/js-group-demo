@@ -54,6 +54,7 @@ const NewMessageForm = ({ onPost }) => {
             e.preventDefault();
             onPost(message);
             inputElement.current.value = "";
+            inputElement.current.focus();
           }
         }}
       />

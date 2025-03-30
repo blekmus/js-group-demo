@@ -22,10 +22,12 @@ io.on("connection", (socket) => {
   });
 });
 
-app.get("/", (req, res) => {
+app.get("/", (_req, res) => {
   res.send("Socket.IO server is running");
 });
 
-server.listen(3001, () => {
-  console.log("Server running on http://localhost:3001");
+const port = process.env.PORT || 3001;
+
+server.listen(port, () => {
+  console.log(`Server running on http://localhost:${port}`);
 });

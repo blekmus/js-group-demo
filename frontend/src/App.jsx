@@ -16,7 +16,7 @@ const guilds = [
   {
     id: 1,
     name: "Class Server",
-    icon: "https://i.ytimg.com/vi/TUuRPk5qVRk/maxresdefault.jpg",
+    icon: "https://api.dicebear.com/9.x/icons/svg?seed=Cap",
     channels: [
       {
         id: 1,
@@ -26,22 +26,22 @@ const guilds = [
       {
         id: 2,
         name: "lesson",
-        socket: "very-secret",
+        socket: "lesson",
       },
     ],
   },
-  // {
-  //   id: 2,
-  //   name: "Other",
-  //   icon: "https://i.imgur.com/EOASYoR.png",
-  //   channels: [
-  //     {
-  //       id: 1,
-  //       name: "default",
-  //       socket: "default",
-  //     },
-  //   ],
-  // },
+  {
+    id: 2,
+    name: "Other",
+    icon: "https://api.dicebear.com/9.x/icons/svg?seed=bdd",
+    channels: [
+      {
+        id: 1,
+        name: "default",
+        socket: "default",
+      },
+    ],
+  },
 ];
 
 const StyledApp = styled.div`
