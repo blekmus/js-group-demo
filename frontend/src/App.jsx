@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { io } from "socket.io-client";
 import { v4 as uuid } from "uuid";
 
-import GlobalStyles from "./components/globalstyles";
-import ScrollbarStyles from "./components/scrollbarstyles";
+import GlobalStyles from "./components/GlobalStyles";
+import ScrollbarStyles from "./components/ScrollbarStyles";
 import Navbar from "./components/Navbar";
 import { TooltipsManager } from "./components/Tooltip";
 import Channels from "./components/Channels";
